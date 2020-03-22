@@ -49,9 +49,8 @@ models (and the Pi Zero). With the faster models, the panels sometimes
 can't keep up with the speed; check out
 this [troubleshooting section](#troubleshooting) what to do.
 
-A lightweight, non-GUI, distribution such as [DietPi] is recommended.
-[Raspbian Lite][raspbian-lite] is a bit easier to get started with and
-is a good second choice.
+A lightweight, non-GUI, distribution such as [Raspbian Lite][raspbian-lite]
+or [DietPi] is recommended.
 
 Types of Displays
 -----------------
@@ -139,6 +138,12 @@ network protocols, such as the
 (VLC can send videos to it natively) or the
 [PixelPusher implementation](https://github.com/hzeller/rpi-matrix-pixelpusher)
 (common in light art installations).
+
+If you have arduino code that uses RGBPanels, you'll likely hit limits around 128x64
+total resolution. If you nee more pixels, you should use this driver for rPi, and then
+you can use Marc's [FastLED_RPIRGBPanel_GFX](http://marc.merlins.org/perso/arduino/post_2020-01-01_Running-FastLED_-Adafruit_GFX_-and-LEDMatrix-code-on-High-Resolution-RGBPanels-with-a-Raspberry-Pi.html)
+that allows you run arduino code on linux/rPi and display on bigger RGBPanel matrices 
+with this driver.
 
 ### API
 
@@ -503,8 +508,6 @@ In general, run a minimal configuration on your Pi.
     might want to run ntp at system start-up but then not regularly updating.
     There might be other things running regularly you don't need;
     consider a `sudo systemctl stop cron` for instance.
-    To address some irregular flicker, consider the
-    [`--led-limit-refresh`](#misc-options) option.
 
   * There are probably other processes that are running that you don't need
     and remove them; I usually remove right away stuff I really don't need e.g.
@@ -527,8 +530,7 @@ In general, run a minimal configuration on your Pi.
 
 The default install of **[Raspbian Lite][raspbian-lite]** or **[DietPi]**
 seem to be good starting points, as they have a reasonably minimal
-configuration to begin with. Raspbian Lite is not as lite anymore
-as it used to be; I prefer DietPi these days.
+configuration to begin with.
 
 ### Bad interaction with Sound
 If sound is enabled on your Pi, this will not work together with the LED matrix,
